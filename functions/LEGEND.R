@@ -4,7 +4,7 @@ library(testthat)
 library(survival)
 library(cmprsk)
 
-runLEGEND <- function(covariateData, treatmentVarId, dp = TRUE, seed = 123, modelType = "cox", runGPU = TRUE, runCPU = TRUE, GpuDevice, threads = 1) {
+runLEGEND <- function(covariateData, treatmentVarId, dp = TRUE, seed = 123, modelType = "cox", runGPU = TRUE, runCPU = TRUE, GpuDevice, threads = 1, bootstrapFileName = "bootstrapOut.txt", bootstrapReplicates = 200) {
     
     set.seed(seed)
     
@@ -53,7 +53,8 @@ runLEGEND <- function(covariateData, treatmentVarId, dp = TRUE, seed = 123, mode
              signif(fitGPU$timeFit,3), attr(fitGPU$timeFit,"units"),
              ")"))
              
-        ci <- confint(fitGPU, parm = treatmentVarId, includePenalty = TRUE)
+#        ci <- confint(fitGPU, parm = treatmentVarId, includePenalty = TRUE)
+        bs <- runBootstrap(fitGPU, bootstrapFileName, as.character(treatmentVarId), bootstrapReplicates)
     }
 
     if (runCPU) {
@@ -72,7 +73,8 @@ runLEGEND <- function(covariateData, treatmentVarId, dp = TRUE, seed = 123, mode
              signif(fitCPU$timeFit,3), attr(fitCPU$timeFit,"units"),
              ")"))
         
-        ci <- confint(fitCPU, parm = treatmentVarId, includePenalty = TRUE)
+#        ci <- confint(fitCPU, parm = treatmentVarId, includePenalty = TRUE)
+        bs <- runBootstrap(fitCPU, bootstrapFileName, as.character(treatmentVarId), bootstrapReplicates)
     }
 
 
@@ -88,9 +90,9 @@ runLEGEND <- function(covariateData, treatmentVarId, dp = TRUE, seed = 123, mode
 
     # return results
     if (runGPU) {
-        return(list(fit = fitGPU, ci = ci))
+        return(list(fit = fitGPU))
     } else {
-        return(list(fit = fitCPU, ci = ci))
+        return(list(fit = fitCPU))
     }
 }
 
