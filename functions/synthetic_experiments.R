@@ -5,7 +5,7 @@ library(testthat)
 library(survival)
 library(cmprsk)
 
-simCox <- function(nrows, ncovars = 1000, beta, nstrata = 1, sparseness = 0.95, zeroEffectSizeProp = 0.8, ind = TRUE, seed = 123) {
+simCox <- function(nrows, ncovars = 1000, beta, nstrata = 1, sparseness = 0.95, ind = TRUE, seed = 123) {
 
     set.seed(seed)
  
@@ -53,7 +53,7 @@ simCox <- function(nrows, ncovars = 1000, beta, nstrata = 1, sparseness = 0.95, 
     return(andr)
 }
 
-simFG <- function(nrows, ncovars = 1000, beta1, nstrata = 1, sparseness = 0.95, zeroEffectSizeProp = 0.8, ind = TRUE, seed = 123) {
+simFG <- function(nrows, ncovars = 1000, beta1, nstrata = 1, sparseness = 0.95, ind = TRUE, seed = 123) {
 
     set.seed(seed)
 
@@ -123,9 +123,9 @@ runFixedL1 <- function(nrows, ncovars = 1000, nstrata = 1, sparseness = 0.95, ze
     beta <- rnorm(ncovars,mean=0,sd=sd)
 
     if (modelType == "cox") {
-        andr <- simCox(nrows = nrows, ncovars = ncovars, beta = beta, nstrata = nstrata, sparseness = sparseness, zeroEffectSizeProp = zeroEffectSizeProp, ind = ind, seed = seed)
+        andr <- simCox(nrows = nrows, ncovars = ncovars, beta = beta, nstrata = nstrata, sparseness = sparseness, ind = ind, seed = seed)
     } else if (modelType == "fgr") {
-        andr <- simFG(nrows = nrows, ncovars = ncovars, beta1 = beta, nstrata = nstrata, sparseness = sparseness, zeroEffectSizeProp = zeroEffectSizeProp, ind = ind, seed = seed)
+        andr <- simFG(nrows = nrows, ncovars = ncovars, beta1 = beta, nstrata = nstrata, sparseness = sparseness, ind = ind, seed = seed)
     }
     
     ######################################
@@ -213,9 +213,9 @@ runAutoL1 <- function(nrows, ncovars = 1000, nstrata = 1, sparseness = 0.95, zer
     beta <- rnorm(ncovars,mean=0,sd=sd)
 
     if (modelType == "cox") {
-        andr <- simCox(nrows = nrows, ncovars = ncovars, beta = beta, nstrata = nstrata, sparseness = sparseness, zeroEffectSizeProp = zeroEffectSizeProp, ind = ind, seed = seed)
+        andr <- simCox(nrows = nrows, ncovars = ncovars, beta = beta, nstrata = nstrata, sparseness = sparseness, ind = ind, seed = seed)
     } else if (modelType == "fgr") {
-        andr <- simFG(nrows = nrows, ncovars = ncovars, beta1 = beta, nstrata = nstrata, sparseness = sparseness, zeroEffectSizeProp = zeroEffectSizeProp, ind = ind, seed = seed)
+        andr <- simFG(nrows = nrows, ncovars = ncovars, beta1 = beta, nstrata = nstrata, sparseness = sparseness, ind = ind, seed = seed)
     }
 
     ######################################
