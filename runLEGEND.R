@@ -1,7 +1,7 @@
 library(Andromeda)
 library(Cyclops)
 
-GpuDevice <- listOpenCLDevices()[1]
+GpuDevice <- listGPUDevices()[1]
 
 source("functions/LEGEND.R")
 

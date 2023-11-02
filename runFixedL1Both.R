@@ -5,9 +5,7 @@ library(testthat)
 library(survival)
 library(cmprsk)
 
-GpuDevice <- listOpenCLDevices()[1] # "Quadro GV100"
-#GpuDevice <- listOpenCLDevices()[2] # "TITAN V"
-#GpuDevice <- listOpenCLDevices()[3] # "GeForce RTX 2080"
+GpuDevice <- listGPUDevices()[1]
 
 source("functions/synthetic_experiments.R")
 
